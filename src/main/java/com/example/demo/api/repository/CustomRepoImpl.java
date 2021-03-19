@@ -56,4 +56,22 @@ public class CustomRepoImpl implements CustomRepo{
         return mongoTemplate.aggregate(aggregation, movies.class, Document.class).getMappedResults();
 
     }
+
+    @Override
+    public List<movies> getMoviesWithGreaterRuntime(int runtime) {
+        Criteria criteria = Criteria.where("runtime").ne(null).gt(runtime);
+        Query query = new Query(criteria);
+        query.fields().include("title", "cast", "runtime");
+        return mongoTemplate.find(query, movies.class);
+    }
+
+    @Override
+    public List<movies> getMoviesFromNumReviewsAndRuntime(int tomatoNumReviews, int runtime) {
+        Criteria criteria = Criteria.where("tomatoes.viewer.numReviews").ne(null).gt(tomatoNumReviews).
+                andOperator(Criteria.where("runtime").ne(null).gt(runtime));
+        Query query = new Query(criteria).with(Sort.by(desc("tomatoes.viewer.numReview")));
+        query.fields().include("title", "runtime", "tomatoes.viewer.numReviews");
+        return mongoTemplate.find(query, movies.class);
+    }
+
 }

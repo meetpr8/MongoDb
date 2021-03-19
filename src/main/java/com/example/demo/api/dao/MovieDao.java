@@ -53,4 +53,12 @@ public class MovieDao {
     public List<Document> getTop10Directors() {
         return movieRepo.getTop10ImdbDirectors();
     }
+
+    public List<movies> getMoviesWithGreaterRuntime(int runtime) {
+        return movieRepo.getMoviesWithGreaterRuntime(runtime);
+    }
+
+    public List<movies> getMoviesFromNumReviewsAndRuntime(int tomatoNumReviews, int runtime) {
+        return movieRepo.getMoviesFromNumReviewsAndRuntime(tomatoNumReviews, runtime);
+    }
 }

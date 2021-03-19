@@ -54,4 +54,12 @@ public class MovieService {
     public List<Document> getTop10Directors() {
         return movieDao.getTop10Directors();
     }
+
+    public List<movies> getMoviesWithGreaterRuntime(int runtime) {
+        return movieDao.getMoviesWithGreaterRuntime(runtime);
+    }
+
+    public List<movies> getMoviesFromNumReviewsAndRuntime(int tomatoNumReviews, int runtime) {
+        return movieDao.getMoviesFromNumReviewsAndRuntime(tomatoNumReviews, runtime);
+    }
 }

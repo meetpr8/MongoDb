@@ -14,12 +14,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Component
 public class MovieDao {
     @Autowired
     private MovieRepo movieRepo;
+    // All the functions till getAll are using the inbuilt functions of MongoRepository which is extended by our MovieRepo.
     public movies getMovie(String title) {
         return (movies) movieRepo.findByTitleSingle(title);
     }
@@ -50,6 +52,7 @@ public class MovieDao {
         return movieRepo.getMoviesOfActor(actor);
     }
 
+    // From here, all the functions are implemented using our Custom Repository and its implementation is in CustomRepoImpl
     public List<Document> getTop10Directors() {
         return movieRepo.getTop10ImdbDirectors();
     }
@@ -60,5 +63,13 @@ public class MovieDao {
 
     public List<movies> getMoviesFromNumReviewsAndRuntime(int tomatoNumReviews, int runtime) {
         return movieRepo.getMoviesFromNumReviewsAndRuntime(tomatoNumReviews, runtime);
+    }
+
+    public void updateTitle(String title, HashMap<String, String> body) {
+        movieRepo.updateTitle(title, body);
+    }
+
+    public void removeMovie(String title) {
+        movieRepo.removeMovie(title);
     }
 }

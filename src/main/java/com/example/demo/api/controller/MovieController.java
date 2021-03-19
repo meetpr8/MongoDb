@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -75,6 +76,17 @@ public class MovieController {
         return movieService.getMoviesFromNumReviewsAndRuntime(tomatoNumReviews, runtime);
     }
 
+    @PutMapping(value = "update/{title}")
+    public void updateTitle(@PathVariable String title, @RequestBody HashMap<String, String> body)
+    {
+        movieService.updateTitle(title, body);
+    }
+
+    @PutMapping(value = "remove/{title}")
+    public void removeMovie(@PathVariable String title)
+    {
+        movieService.removeMovie(title);
+    }
 
 
 }

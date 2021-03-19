@@ -1,12 +1,21 @@
 package com.example.demo.api.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.index.CompoundIndexes;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 import java.util.List;
 
 @Document
+
+@CompoundIndexes({
+        @CompoundIndex(name = "tomato_numReviews_runtime", def = "{'tomatoes.viewer.numReviews': 1, 'runtime': 1}"),
+        @CompoundIndex(name = "runtime", def = "{'runtime': 1}")
+})
+
 public class movies{
     @Id
     private String id;
@@ -21,6 +30,8 @@ public class movies{
     private List<String> directors;
     private List<String> writers;
     private IMDB imdb;
+//    @Indexed
+    private int runtime;
 
     private List<String> countries;
     private List<String> genres;
@@ -31,6 +42,27 @@ public class movies{
 
     public movies() {
         super();
+    }
+
+    public movies(String id, String title, int year, List<String> cast, String plot, String fullPlot, Date lastUpdated, String type, String poster, List<String> directors, List<String> writers, IMDB imdb, int runtime, List<String> countries, List<String> genres, RottenTomatoes tomatoes, List<Comment> comments) {
+        super();
+        this.id = id;
+        this.title = title;
+        this.year = year;
+        this.cast = cast;
+        this.plot = plot;
+        this.fullPlot = fullPlot;
+        this.lastUpdated = lastUpdated;
+        this.type = type;
+        this.poster = poster;
+        this.directors = directors;
+        this.writers = writers;
+        this.imdb = imdb;
+        this.runtime = runtime;
+        this.countries = countries;
+        this.genres = genres;
+        this.tomatoes = tomatoes;
+        this.comments = comments;
     }
 
     public String getId() {
@@ -161,10 +193,13 @@ public class movies{
         this.comments = comments;
     }
 
-//    public Predicate getPredicateByYear(int Year)
-//    {
-//        return year -> (year == Year) ;
-//    }
+    public int getRuntime() {
+        return runtime;
+    }
+
+    public void setRuntime(int runtime) {
+        this.runtime = runtime;
+    }
 
 
 }

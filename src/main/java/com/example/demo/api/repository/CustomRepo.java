@@ -7,5 +7,10 @@ import java.util.List;
 
 public interface CustomRepo {
     public List<movies> getMoviesOfActor(String actor);
+
     public List<Document> getTop10ImdbDirectors();
+
+    List<movies> getMoviesWithGreaterRuntime(int runtime);
+
+    List<movies> getMoviesFromNumReviewsAndRuntime(int tomatoNumReviews, int runtime);
 }

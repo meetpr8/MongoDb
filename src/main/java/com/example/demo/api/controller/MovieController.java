@@ -63,5 +63,18 @@ public class MovieController {
         return movieService.getTop10Directors();
     }
 
+    @GetMapping(value = "/runtime>/{runtime}")
+    public List<movies> getMoviesWithGreaterRuntime(@PathVariable(value = "runtime") int runtime)
+    {
+        return movieService.getMoviesWithGreaterRuntime(runtime);
+    }
+
+    @GetMapping(value = "/ReviewsAndRuntime/{tomatoNumReviews}/{runtime}")
+    public List<movies> getMoviesFromNumReviewsAndRuntime(@PathVariable(value = "tomatoNumReviews") int tomatoNumReviews, @PathVariable(value = "runtime") int runtime)
+    {
+        return movieService.getMoviesFromNumReviewsAndRuntime(tomatoNumReviews, runtime);
+    }
+
+
 
 }

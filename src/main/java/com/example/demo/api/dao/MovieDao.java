@@ -23,7 +23,7 @@ public class MovieDao {
     private MovieRepo movieRepo;
     // All the functions till getAll are using the inbuilt functions of MongoRepository which is extended by our MovieRepo.
     public movies getMovie(String title) {
-        return (movies) movieRepo.findByTitleSingle(title);
+        return movieRepo.findByTitleSingle(title);
     }
 
     public List<movies> getMovieSorted(String title)
@@ -43,9 +43,14 @@ public class MovieDao {
 
     public List<movies> getAll() {return movieRepo.findAll();}
 
-    public void addMovie(@RequestBody movies movie)
+    public boolean addMovie(@RequestBody movies movie)
     {
+        if(movie.getId()!=null && movieRepo.findById(movie.getId()).isPresent())
+        {
+            return false;
+        }
         movieRepo.save(movie);
+        return true;
     }
 
     public List<movies> getMoviesOfActor(String actor) {

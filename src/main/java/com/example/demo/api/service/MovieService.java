@@ -13,14 +13,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MovieService {
     @Autowired
     private MovieDao movieDao;
     public movies getMovie(String title) {
-        return (movies) movieDao.getMovie(title);
+        return movieDao.getMovie(title);
     }
 
     public List<movies> getMovieSorted(String title)
@@ -42,9 +44,9 @@ public class MovieService {
         return movieDao.getAll();
     }
 
-    public void addMovie(movies movie)
+    public boolean addMovie(movies movie)
     {
-        movieDao.addMovie(movie);
+        return movieDao.addMovie(movie);
     }
 
     public List<movies> getMoviesOfActor(String actor) {
@@ -61,5 +63,13 @@ public class MovieService {
 
     public List<movies> getMoviesFromNumReviewsAndRuntime(int tomatoNumReviews, int runtime) {
         return movieDao.getMoviesFromNumReviewsAndRuntime(tomatoNumReviews, runtime);
+    }
+
+    public void updateTitle(String title, HashMap<String, String> body) {
+        movieDao.updateTitle(title, body);
+    }
+
+    public void removeMovie(String title) {
+        movieDao.removeMovie(title);
     }
 }
